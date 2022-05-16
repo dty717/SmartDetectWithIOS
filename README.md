@@ -1,1 +1,1 @@
-# SmartDetectWithIOS
+# SmartDetect

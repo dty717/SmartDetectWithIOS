@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.smartdetectwithios">
+  package="com.smartdetect">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

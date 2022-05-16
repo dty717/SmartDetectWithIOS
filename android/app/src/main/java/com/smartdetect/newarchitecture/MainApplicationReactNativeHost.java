@@ -1,4 +1,4 @@
-package com.smartdetectwithios.newarchitecture;
+package com.smartdetect.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.smartdetectwithios.BuildConfig;
-import com.smartdetectwithios.newarchitecture.components.MainComponentsRegistry;
-import com.smartdetectwithios.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.smartdetect.BuildConfig;
+import com.smartdetect.newarchitecture.components.MainComponentsRegistry;
+import com.smartdetect.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

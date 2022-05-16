@@ -1,4 +1,11 @@
 {
-  "name": "SmartDetectWithIOS",
-  "displayName": "SmartDetectWithIOS"
+  "expo": {
+    "name": "SmartDetect",
+    "slug": "SmartDetect",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "SmartDetect"
 }

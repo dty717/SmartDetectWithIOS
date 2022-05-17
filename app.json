@@ -19,6 +19,12 @@
     ],
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "android": {
+      "package": "com.smartdetect"
+    },
+    "ios": {
+      "bundleIdentifier": "org.dty.SmartDetect"
     }
   }
 }

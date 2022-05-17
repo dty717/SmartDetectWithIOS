@@ -8,7 +8,8 @@ import {
   ScrollView,
   useWindowDimensions,
   TouchableWithoutFeedback,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native';
 
 //table style config
@@ -35,6 +36,10 @@ var maxHeight = 1000000;
 var maxWidth = 200;
 var usingWeb = false;
 
+
+const screen = Dimensions.get("screen");
+
+
 const HistoryTable = ({ headers, dataList, tableConfig = {} ,needReset}) => {
   var {
     shiftLen = 0,
@@ -58,7 +63,17 @@ const HistoryTable = ({ headers, dataList, tableConfig = {} ,needReset}) => {
   const setRow = (e) => {
     setSelectedRow(e);
   }
-  
+  const [dimensions, setDimensions] = useState({ screen });
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener(
+      "change",
+      ({ screen }) => {
+        setDimensions({ screen });
+      }
+    );
+    return () => subscription?.remove();
+  });
+
   useEffect(()=>{
     scrollY = 0;
     scrollX = 0;
@@ -124,7 +139,7 @@ const HistoryTable = ({ headers, dataList, tableConfig = {} ,needReset}) => {
 
   maxWidth = headers.reduce(function (previousValue, current) {
     return previousValue + current.width
-  }, 0) - window.width + tableMarginHorizontal * 2;
+  }, 0) * dimensions.screen.fontScale - window.width + tableMarginHorizontal * 2;
   maxWidth = maxWidth > 0 ? maxWidth : 0;
   const formatData = (dataName, data) => {
     switch (dataName) {
@@ -148,7 +163,7 @@ const HistoryTable = ({ headers, dataList, tableConfig = {} ,needReset}) => {
         <Animated.View
           style={{ ...styles.firstCol }}
           {...panResponder.panHandlers}>
-          <View style={{ width: headers[0].width, ...styles.firstTableHeader }}>
+          <View style={{ width: headers[0].width* dimensions.screen.fontScale, ...styles.firstTableHeader }}>
             <Text style={{ backgroundColor: 'white', ...styles.tableHeaderStyle }}>{headers[0].name}</Text>
           </View>
 
@@ -161,7 +176,7 @@ const HistoryTable = ({ headers, dataList, tableConfig = {} ,needReset}) => {
           >
             {dataList.map((e, index) => {
               return (
-                <View key={index} style={{ width: headers[0].width, borderRightWidth: tableCellVerticalBorderWidth }}>
+                <View key={index} style={{ width: headers[0].width* dimensions.screen.fontScale, borderRightWidth: tableCellVerticalBorderWidth }}>
                   <TouchableWithoutFeedback onPress={() => setRow(index)} >
                     <Text style={{ backgroundColor: selectedRow == index ? tableRowSelectedColor : "white", ...styles.tableCellStyle }}>
                       {index + 1}
@@ -192,7 +207,7 @@ const HistoryTable = ({ headers, dataList, tableConfig = {} ,needReset}) => {
           {...panResponder.panHandlers}>
           <View style={styles.tableHeader}>
             {headers.slice(1).map((head, index) => (
-              <View key={index} style={{ width: head.width, borderTopWidth: tableBorderWidth, borderLeftWidth: tableCellVerticalBorderWidth, borderBottomWidth: tableHeaderHorizontalBorderWidth }}>
+              <View key={index} style={{ width: head.width * dimensions.screen.fontScale, borderTopWidth: tableBorderWidth, borderLeftWidth: tableCellVerticalBorderWidth, borderBottomWidth: tableHeaderHorizontalBorderWidth }}>
                 <Text key={head.name} style={styles.tableHeaderStyle}>
                   {head.name}
                 </Text>
@@ -217,7 +232,7 @@ const HistoryTable = ({ headers, dataList, tableConfig = {} ,needReset}) => {
                 // <TouchableWithoutFeedback onPress={() => setSelectedRow(index)}>
                 <TouchableOpacity style={styles.tableRow} key={index} onPress={() => setRow(index)} activeOpacity={1}>
                   {headers.slice(1).map((head, index2) => (
-                    <View key={index + " " + index2} style={{ width: head.width, borderLeftWidth: tableCellVerticalBorderWidth }} >
+                    <View key={index + " " + index2} style={{ width: head.width * dimensions.screen.fontScale, borderLeftWidth: tableCellVerticalBorderWidth }} >
                       <Text style={{ backgroundColor: selectedRow == index ? tableRowSelectedColor : "white", ...styles.tableCellStyle }}>
                         {formatData(head.dataName, data)}
                       </Text>
